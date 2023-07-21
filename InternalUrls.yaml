@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: internalurls
+  namespace: poc-ingress
+  labels:
+    app: dockersol  
+data:
+# Internal Services & healthchecks
+  customerapibaseurl: http://customerapi

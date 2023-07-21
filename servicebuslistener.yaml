@@ -1,0 +1,24 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: servicebuslistener
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: servicebuslistener
+    spec:
+      containers:
+      - name: servicebuslistener
+        image: priyanko83/servicebuslistener:latest
+        imagePullPolicy: Always
+        args: ["-it"]
+        env:        
+        - name: CustomerApiUrl
+          valueFrom:
+           configMapKeyRef:
+             name: internalurls
+             key: customerapiurlinfo
+      imagePullSecrets:
+        - name: priyankodockerhubregistrykey

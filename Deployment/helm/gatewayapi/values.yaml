@@ -1,0 +1,46 @@
+replicaCount: 1
+clusterName: eshop-aks
+pathBase: /gatewayapi
+namespace: pm-ingress
+
+image:
+  repository: priyanko83/gatewayapi
+  tag: latest
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  annotations: {}
+  hosts:
+    - chart-example.local
+  tls: []
+
+resources: {}
+
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+env:
+  urls:
+  configmap:
+    - name: CustomerApiUrl
+      key: Config__CustomerApiUrl
+  values:
+    - name: ASPNETCORE_ENVIRONMENT
+      value: Development
+    - name: OrchestratorType
+      value: 'K8S'
+    - name: IsClusterEnv
+      value: 'True'
+
+
+
+enableDevspaces: "false"

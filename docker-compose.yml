@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+  customerapi:
+    image: ${DOCKER_REGISTRY}/customerapi
+    build:
+      args:
+        source: .
+      context: ./CustomerAPI
+      dockerfile: Dockerfile
+
+  gatewayapi:
+    image: ${DOCKER_REGISTRY}/gatewayapi
+    build:
+      args:
+        source: .
+      context: ./GatewayApi
+      dockerfile: Dockerfile
+
+
+  servicebuslistener:
+    image: ${DOCKER_REGISTRY}servicebuslistener
+    build:
+      context: .
+      dockerfile: ../ServiceBusListener/Dockerfile
+

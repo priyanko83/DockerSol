@@ -1,0 +1,13 @@
+https://github.com/TheCoderDream/React-Ecommerce-App-with-Redux
+Live Debug: http://numberless-leg.surge.sh
+
+
+https://github.com/TheCoderDream/React-Chat-App-With-Redux-And-Firebase
+Live Debug: https://react-chat-appp.netlify.app/
+
+
+https://github.com/jgudo/ecommerce-react/tree/master/src
+Live Debug: https://salinaka-ecommerce.web.app/
+
+https://github.com/codeBelt/react-redux-architecture
+Live Debug: https://codebelt.github.io/react-redux-architecture/

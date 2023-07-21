@@ -1,0 +1,191 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: internalurls
+  namespace: poc-ingress
+  labels:
+    app: dockersol  
+data:
+# Internal Services & healthchecks
+  customerapiurlinfo: http://customerapi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customerapi
+  namespace: poc-ingress
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: customerapi
+  template:
+    metadata:
+      labels:
+        app: customerapi
+    spec:
+      containers:
+      - name: customerapi
+        image: priyanko83/customerapi:latest
+        imagePullPolicy: Always
+        env:        
+        - name: CustomerApiUrl
+          valueFrom:
+           configMapKeyRef:
+             name: internalurls
+             key: customerapiurlinfo
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+        - name: priyankodockerhubregistrykey
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: customerapi
+  namespace: poc-ingress
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: customerapi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gatewayapi
+  namespace: poc-ingress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gatewayapi
+  template:
+    metadata:
+      labels:
+        app: gatewayapi
+    spec:
+      containers:
+      - name: gatewayapi
+        image: priyanko83/gatewayapi:latest
+        imagePullPolicy: Always
+        env:        
+        - name: CustomerApiUrl
+          valueFrom:
+           configMapKeyRef:
+             name: internalurls
+             key: customerapiurlinfo
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+        - name: priyankodockerhubregistrykey
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gatewayapi
+  namespace: poc-ingress
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: gatewayapi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: servicebuslistener
+  namespace: poc-ingress
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: servicebuslistener
+  template:
+    metadata:
+      labels:
+        app: servicebuslistener
+    spec:
+      containers:
+      - name: servicebuslistener
+        image: priyanko83/servicebuslistener:latest
+        imagePullPolicy: Always
+        args: ["-it"]
+        env:        
+        - name: CustomerApiUrl
+          valueFrom:
+           configMapKeyRef:
+             name: internalurls
+             key: customerapiurlinfo
+      imagePullSecrets:
+        - name: priyankodockerhubregistrykey
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-angular
+  namespace: poc-ingress
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend-angular
+  template:
+    metadata:
+      labels:
+        app: frontend-angular
+    spec:
+      containers:
+      - name: frontend-angular
+        image: priyanko83/frontend-angular:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+        - name: priyankodockerhubregistrykey
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-angular-service
+  namespace: poc-ingress
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: frontend-angular
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-react
+  namespace: poc-ingress
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend-react
+  template:
+    metadata:
+      labels:
+        app: frontend-react
+    spec:
+      containers:
+      - name: frontend-react
+        image: priyanko83/frontend-react:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+        - name: priyankodockerhubregistrykey
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-react-service
+  namespace: poc-ingress
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: frontend-react

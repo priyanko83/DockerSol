@@ -1,0 +1,142 @@
+az login
+az account set --subscription 87942bd2-87e0-47f3-a71f-f6817369c2ec
+az aks get-credentials --resource-group eshop-aks  --name eshop-aks-cluster
+az aks browse --resource-group eshop-aks  --name eshop-aks-cluster
+
+az login
+az account set --subscription 87942bd2-87e0-47f3-a71f-f6817369c2ec
+az aks get-credentials --resource-group eshop-aks  --name eshop-aks-cluster
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
+
+For remote ubuntu build
+------------------------
+cd ~										#navigate to home directory
+cd ./DockerFirstPoC/Dockerize							#navigate to code folder
+cd ./DockerFirstPoC/AAD_MSAL_Angular_Frontend/AAD-Angular-FE
+sudo docker build -f GatewayApi/Dockerfile .					#build docker image
+
+
+az login --service-principal -u 745395ae-a277-4b78-9d6d-afd9c4680525 -p .AdG1DRSeXcqQSBbE2dJJbg6PZsM.?7] --tenant 38857842-8570-4fcf-870b-b7aa1fcddf06
+az account set --subscription a0671ab8-7fe9-4f47-aed6-faf804035ba9
+az aks get-credentials --resource-group PM-AKS-CLUSTER-RG --name PM-AKS-CLUSTER
+az aks browse --resource-group PM-AKS-CLUSTER-RG  --name PM-AKS-CLUSTER
+
+
+
+kubectl create clusterrolebinding kubernetes-dashboard -n kube-system --clusterrole=cluster-admin --serviceaccount=kube-system:kubernetes-dashboard   #one time activity to get rid of access forbidden error message in aks dashboard
+
+
+
+
+kubectl apply -f DockerSol.yaml
+pwsh   #powershell in ubuntu
+
+For docker login
+----------------
+docker build .
+docker login --username=priyanko83
+docker images
+docker tag f4ec4 priyanko83/gatewayapi:1601
+docker push priyanko83/gatewayapi:1601
+
+docker container stop cc810  49a0ad
+docker container rm cc810  49a0ad
+docker image rm 6a20f
+
+#stop and remove all running containers
+docker container stop $(docker container ls -aq)
+docker container rm $(docker container ls -aq)
+docker image rm nginx-angular
+
+docker-compose -f docker-compose.servicebuslistener.yml build
+docker build -t priyanko83/servicebuslistener:1 .  (to be executed from E:\Repos\DockerSol)
+docker push priyanko83/servicebuslistener:1
+
+Remove docker image
+-------------------
+docker rmi $(docker images -f "dangling=true" -q) --force
+docker ps -a -q | % { docker stop $_ }
+docker ps -a -q | % { docker rm $_ }
+docker images --filter "dangling=true" -q --no-trunc | % { docker rmi $_ -f }
+docker volume ls -qf dangling=true | % { docker volume rm $_ }
+
+Windows Container
+------------------
+#Run an image
+docker run -d -p 8081:8081 priyanko83/claimsapiw
+
+
+
+For creating an image
+------------------------  
+az login
+az aks get-credentials --resource-group mykubegrp001 --name mykube001
+kubectl get service gatewayapi --watch
+kubectl delete services -All
+kubectl delete deployments -All
+
+kubectl delete deployments/customerapi
+kubectl delete services/customerapi
+kubectl delete deployments/servicebuslistener
+kubectl delete services/servicebuslistener
+kubectl delete deployments/gatewayapi
+kubectl delete services/gatewayapi
+kubectl apply -f C:\DockerFirstPoC\Dockerize\DockerSol.yaml
+kubectl apply -f C:\DockerFirstPoC\Dockerize\servicebuslistener.yaml
+
+For updating an image
+------------------------
+az aks browse --resource-group mykubegrp001  --name mykube001
+
+# Always change the image tag when deploying a new version if kubectl has to update it using below command.
+# See https://github.com/kubernetes/kubernetes/issues/33664
+#kubectl set image deployment/gatewayapi gatewayapi=priyanko93/gatewayapi:put_a_different_tag her
+kubectl set image deployment/gatewayapi gatewayapi=priyanko83/gatewayapi:1601
+
+For Azure Container Registry
+-----------------------------
+kubectl create secret docker-registry acr-auth --docker-server containerstore.azurecr.io --docker-username 9c8ce8fc-701a-45fc-9f3b-e7f547d8b377 --docker-password 2757167e-9a39-420b-ad7a-37e8236dbf41 --docker-email priyanko.mukherjee@gmail.com
+
+For dockerhub
+-------------------
+kubectl create secret docker-registry priyankodockerhubregistrykey --docker-server=https://index.docker.io/v1/ --docker-username=priyanko83 --docker-password=Ab289405 --docker-email=priyanko.mukherjee@gmail.com
+
+for angular nginx
+-------------------
+az login --service-principal -u 745395ae-a277-4b78-9d6d-afd9c4680525 -p .AdG1DRSeXcqQSBbE2dJJbg6PZsM.?7] --tenant 38857842-8570-4fcf-870b-b7aa1fcddf06
+az account set --subscription a0671ab8-7fe9-4f47-aed6-faf804035ba9
+az aks get-credentials --resource-group PM-AKS-INGRESS-RG --name PM-AKS-INGRESS
+az aks browse --resource-group PM-AKS-INGRESS-RG  --name PM-AKS-INGRESS
+
+docker image build -t nginx-angular .
+docker run -p 3000:80 --rm nginx-angular
+
+#stop and remove all running containers
+docker container stop $(docker container ls -aq)
+docker container rm $(docker container ls -aq)
+docker image rm nginx-angular
+
+kubectl set image deployment/gatewayapi gatewayapi=priyanko83/gatewayapi:1601
+kubectl set image deployment/angular-adal-frontend angular-adal-frontend=priyanko83/angular-adal-frontend:161
+
+Path to kubeconfig = C:\Users\User\.kube
+
+
+
+
+sudo docker login --username=priyanko83
+sudo docker images
+
+
+cd ~
+cd ./DockerFirstPoC/AAD_MSAL_Angular_Frontend/AAD-Angular-FE
+sudo docker build .
+
+sudo docker tag bb46f priyanko83/angularfe:latest
+sudo docker push priyanko83/angularfe:latest
+
+cd ~
+cd ./DockerFirstPoC/Dockerize
+kubectl delete -f msal-angular-fe.yaml
+kubectl apply -f msal-angular-fe.yaml

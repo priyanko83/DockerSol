@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  customerapi:
+    image: ${DOCKER_REGISTRY}/gatewayapi
+    build:
+      args:
+        source: .
+      context: .
+      dockerfile: GatewayApi/Dockerfile

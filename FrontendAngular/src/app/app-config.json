@@ -1,0 +1,22 @@
+{
+  "auth": {
+    "clientId": "5e20e54b-7c50-49ed-992b-d6151e3104ab",
+    "authority": "https://login.microsoftonline.com/common",
+    "validateAuthority": true,
+    "redirectUri": "https://pm-aks-microservices.centralus.cloudapp.azure.com/ng", 
+    "postLogoutRedirectUri": "https://pm-aks-microservices.centralus.cloudapp.azure.com/ng",
+    "navigateToLoginRequestUrl": true
+  },
+    "cache": {
+        "cacheLocation": "localStorage"
+    },
+    "scopes": {
+        "loginRequest": ["openid", "profile"]
+    },
+    "resources": {
+      "todoListApi": {
+        "resourceUri": "https://pm-aks-microservices.centralus.cloudapp.azure.com/gatewayapi/api/values",
+        "resourceScope": "api://50e6b9f0-b53e-42c7-89ab-bcbf35c47147/consent"
+      }
+    }     
+}

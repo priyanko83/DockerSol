@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>6ae95ceb-fb37-468e-be27-0c81341668bf</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.15.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.9" />
+    <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="5.2.8" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AzureADAuthenticationUtilities\AzureADAuthenticationUtilities.csproj" />
+    <ProjectReference Include="..\AzureServiceBusManager\AzureServiceBusManager.csproj" />
+    <ProjectReference Include="..\Claims.Core\Claims.Core.csproj" />
+    <ProjectReference Include="..\MongoDBUtilities\MongoDBUtilities.csproj" />
+  </ItemGroup>
+
+
+</Project>

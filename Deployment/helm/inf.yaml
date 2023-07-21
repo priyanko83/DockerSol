@@ -1,0 +1,42 @@
+# This helm values file defines all infrastructure used by eShopOnContainers.
+# It is used on all charts, so ** MUST BE INCLUDED ** on every deployment
+
+inf:
+  mesh:
+    enabled: false          # True to enable Linkerd (set by deploy-all.ps1)
+  tls:
+    enabled: false          # True to enable TLS (set by deploy-all.ps1)
+    issuer: ""              # cert-manager issuer to use for retrieving certs (set by deploy-all.ps1)
+  sql:                      # inf.sql defines the sql server databases & logins
+#    host:  my-sql-server   # Uncomment to specify a custom sql-server to be used. By default "sql-data-<appname>" will be used  
+    common:
+      user: sa              # SQL user
+      pwd: Pass@word        # SQL pwd
+      pid: Developer
+    catalog:                # inf.sql.catalog: settings for the catalog-api sql (user, pwd, db)
+      db: CatalogDb         # Catalog API SQL db name
+    ordering:               # inf.sql.ordering: settings for the ordering-api sql (user, pwd, db)
+      db: OrderingDb        # Ordering API SQL db name
+  mongo:
+#    host: my-nosql-data    # Uncomment to use specify custom mongo host. By default nosql-data is used
+    locations:
+      database: LocationsDb
+
+  redis:                    # inf.redis defines the redis' connection strings
+    basket:     
+      svc: basket-data      # Name of k8s svc for basket redis     
+      constr: basket-data   # Connection string to Redis used by Basket API    
+  eventbus:
+    svc: rabbitmq           # Name of k8s svc for rabbitmq
+    constr: Endpoint=sb://eshopsbmshpjmlwwwy7y.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=vpuZkEJ1Ky/+LfADWDbn7agPjUWEODUFIDaplIn3MwU=;EntityPath=eshop_event_bus        # Event bus connection string
+    useAzure: true         # true if use Azure Service Bus. False if RabbitMQ
+  appinsights:
+      key: ""               # App insights to use
+  k8s:                      # inf.k8s defines Kubernetes cluster global config
+    dns:  ""                # k8s external  DNS. This value or ip value MUST BE PROVIDED
+    local: false            # True when deploying on "local K8s" provided by Docker Desktop.
+  misc:                     # inf.misc contains miscellaneous configuration related to infrastructure
+    useLoadTest: false      # If running under loading test or not
+    useAzureStorage: false  # If catalog api uses azure storage or not
+  
+

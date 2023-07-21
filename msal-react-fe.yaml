@@ -1,0 +1,63 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: dockersolreactfe
+  namespace: pm-ingress
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: dockersolreactfe
+    spec:
+      containers:
+      - name: dockersolreactfe
+        image: priyanko83/dockersolreactfe:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+        - name: priyankodockerhubregistrykey
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dockersolreactfelb
+  namespace: pm-ingress
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: dockersolreactfe
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: angularfe
+  namespace: pm-ingress
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: angularfe
+    spec:
+      containers:
+      - name: angularfe
+        image: priyanko83/angularfe:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+        - name: priyankodockerhubregistrykey
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: angularfelb
+  namespace: pm-ingress
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: angularfe

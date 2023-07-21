@@ -1,0 +1,18 @@
+{{- $name := include "gatewayapi.fullname" . -}}
+
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "cfg-{{ $name }}"
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ template "gatewayapi.name" . }}
+    chart: {{ template "gatewayapi.chart" .}}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+  Config__ConnectionString: put-connection-string-here
+  identity__keystore: put-keystore-value-here
+  all__InstrumentationKey: "{{ .Values.inf.appinsights.key }}"
+  Config__CustomerApiUrl: http://customerapi

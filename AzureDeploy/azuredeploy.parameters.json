@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "serviceBusNamespaceName": {
+      "value": "RELIABLE-MESSAGING"
+    },
+    "serviceBusTopicName": {
+      "value": "CLAIM-HANDLER"
+    },
+    "serviceBusSubscription01Name": {
+      "value": "CREATE-CLAIM"
+    },
+    "serviceBusSubscription02Name": {
+      "value": "EDIT-CLAIM"
+    },
+    "serviceBusSubscription03Name": {
+      "value": "WIRE-TAP"
+    },
+    "serviceBusRule01Name": {
+      "value": "RULE-CREATE-CLAIM"
+    },
+    "serviceBusRule02Name": {
+      "value": "RULE-EDIT-CLAIM"
+    }
+  }
+}
